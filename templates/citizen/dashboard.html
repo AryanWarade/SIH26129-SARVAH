@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block title %}
+Citizen Dashboard | SarvaHConn
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid px-4 py-4">
+
+    <div class="mb-4">
+
+        <span class="text-primary fw-semibold">
+            CITIZEN PORTAL
+        </span>
+
+        <h2 class="fw-bold mt-2">
+            Welcome, {{ user.first_name|default:user.username }}
+        </h2>
+
+        <p class="text-secondary">
+            Access connected government services from one place.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="bi bi-file-earmark-text"></i>
+                </div>
+
+                <div>
+                    <small class="text-secondary">
+                        Active Applications
+                    </small>
+
+                    <h3 class="fw-bold mb-0">
+                        0
+                    </h3>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+
+                <div>
+                    <small class="text-secondary">
+                        Pending Actions
+                    </small>
+
+                    <h3 class="fw-bold mb-0">
+                        0
+                    </h3>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+
+                <div>
+                    <small class="text-secondary">
+                        Completed Services
+                    </small>
+
+                    <h3 class="fw-bold mb-0">
+                        0
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="bi bi-bell"></i>
+                </div>
+
+                <div>
+                    <small class="text-secondary">
+                        Notifications
+                    </small>
+
+                    <h3 class="fw-bold mb-0">
+                        0
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h5 class="fw-bold">
+                                Find Government Services
+                            </h5>
+
+                            <p class="text-secondary">
+                                Explore services across Revenue,
+                                Education and Health.
+                            </p>
+
+                        </div>
+
+                        <i class="bi bi-grid-3x3-gap fs-2 text-primary"></i>
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'service_list' %}"
+                        class="btn btn-primary"
+                    >
+                        <i class="bi bi-search me-2"></i>
+                        Explore Services
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold">
+                        Your Profile
+                    </h5>
+
+                    <p class="text-secondary small">
+                        Manage your basic citizen information.
+                    </p>
+
+
+                    <div class="mb-2">
+
+                        <small class="text-secondary">
+                            Name
+                        </small>
+
+                        <div class="fw-semibold">
+                            {{ user.get_full_name|default:user.username }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-2">
+
+                        <small class="text-secondary">
+                            Email
+                        </small>
+
+                        <div class="fw-semibold">
+                            {{ user.email|default:"Not provided" }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <small class="text-secondary">
+                            Role
+                        </small>
+
+                        <div>
+                            <span class="badge bg-primary-subtle text-primary">
+                                {{ user.get_role_display }}
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <span class="badge bg-success-subtle text-success">
+                        <i class="bi bi-shield-check me-1"></i>
+                        Identity Foundation Active
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

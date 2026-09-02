@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ service.name }} | SarvaHConn
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+    <a
+        href="{% url 'service_list' %}"
+        class="text-decoration-none"
+    >
+        <i class="bi bi-arrow-left me-1"></i>
+        Back to Services
+    </a>
+
+
+    <div class="row mt-4 g-4">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4 p-lg-5">
+
+                    <div class="d-flex gap-3 align-items-start">
+
+                        <div class="service-icon">
+
+                            {% if service.department.code == "REVENUE" %}
+                                <i class="bi bi-bank"></i>
+                            {% elif service.department.code == "EDUCATION" %}
+                                <i class="bi bi-mortarboard"></i>
+                            {% else %}
+                                <i class="bi bi-heart-pulse"></i>
+                            {% endif %}
+
+                        </div>
+
+
+                        <div>
+
+                            <span class="badge bg-primary-subtle text-primary">
+                                {{ service.department.name }}
+                            </span>
+
+                            <h1 class="fw-bold mt-2">
+                                {{ service.name }}
+                            </h1>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="my-4">
+
+
+                    <h5>
+                        About this service
+                    </h5>
+
+                    <p class="text-secondary">
+                        {{ service.description }}
+                    </p>
+
+
+                    <h5 class="mt-4">
+                        Eligibility
+                    </h5>
+
+                    <p class="text-secondary">
+                        {{ service.eligibility|default:"Eligibility information will be provided by the department." }}
+                    </p>
+
+
+                    <h5 class="mt-4">
+                        Processing stages
+                    </h5>
+
+                    <div class="timeline-simple">
+
+                        {% for stage in service.processing_stages %}
+
+                        <div class="timeline-item-simple">
+
+                            <span class="timeline-dot"></span>
+
+                            <span>
+                                {{ stage }}
+                            </span>
+
+                        </div>
+
+                        {% empty %}
+
+                        <div class="text-secondary">
+                            Processing stages will be configured by the department.
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold">
+                        Service Information
+                    </h5>
+
+                    <hr>
+
+
+                    <div class="mb-3">
+
+                        <small class="text-secondary d-block">
+                            Department
+                        </small>
+
+                        <strong>
+                            {{ service.department.name }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <small class="text-secondary d-block">
+                            Service Code
+                        </small>
+
+                        <strong>
+                            {{ service.code }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <small class="text-secondary d-block">
+                            Estimated Processing
+                        </small>
+
+                        <strong>
+                            {{ service.estimated_days }} days
+                        </strong>
+
+                    </div>
+
+
+                    {% if service.is_simulated %}
+
+                    <div class="alert alert-warning small">
+
+                        <i class="bi bi-info-circle me-1"></i>
+
+                        This is a simulated departmental service
+                        for the SarvaHConn SIH prototype.
+
+                    </div>
+
+                    {% endif %}
+
+
+                    <button
+                        class="btn btn-primary w-100"
+                        disabled
+                    >
+                        <i class="bi bi-file-earmark-plus me-2"></i>
+                        Apply
+                    </button>
+
+                    <div class="text-center mt-2">
+
+                        <small class="text-secondary">
+                            Application workflow will be enabled in Phase 5.
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block title %}
+SarvaHConn | Connected Governance
+{% endblock %}
+
+{% block content %}
+
+<section class="hero-section">
+
+    <div class="container py-5">
+
+        <div class="row align-items-center min-vh-75">
+
+            <div class="col-lg-7">
+
+                <span class="hero-badge">
+                    <i class="bi bi-shield-check me-1"></i>
+                    Government Interoperability Platform
+                </span>
+
+                <h1 class="hero-title mt-4">
+
+                    One Platform.
+                    <br>
+
+                    <span>Connected Governance.</span>
+
+                </h1>
+
+                <p class="hero-description mt-4">
+
+                    SarvaHConn securely connects independent government
+                    digital systems to deliver seamless, citizen-centric
+                    services without replacing existing departmental
+                    platforms.
+
+                </p>
+
+
+                <div class="d-flex flex-wrap gap-3 mt-4">
+
+                    <a
+                        href="{% url 'service_list' %}"
+                        class="btn btn-primary btn-lg"
+                    >
+                        <i class="bi bi-grid me-2"></i>
+                        Explore Services
+                    </a>
+
+                    <a
+                        href="{% url 'login' %}"
+                        class="btn btn-outline-primary btn-lg"
+                    >
+                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                        Login
+                    </a>
+
+                </div>
+
+
+                <div class="hero-features mt-5">
+
+                    <div>
+                        <i class="bi bi-plug"></i>
+                        Connect
+                    </div>
+
+                    <div>
+                        <i class="bi bi-arrow-repeat"></i>
+                        Standardize
+                    </div>
+
+                    <div>
+                        <i class="bi bi-shield-lock"></i>
+                        Authorize
+                    </div>
+
+                    <div>
+                        <i class="bi bi-diagram-3"></i>
+                        Orchestrate
+                    </div>
+
+                    <div>
+                        <i class="bi bi-graph-up"></i>
+                        Track
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-5 mt-5 mt-lg-0">
+
+                <div class="architecture-card">
+
+                    <div class="architecture-header">
+                        <span class="status-dot"></span>
+                        SarvaHConn Interoperability Layer
+                    </div>
+
+
+                    <div class="system-node department-node">
+                        <i class="bi bi-building"></i>
+                        Revenue Department
+                    </div>
+
+                    <div class="connector-line"></div>
+
+                    <div class="system-node main-node">
+
+                        <i class="bi bi-diagram-3-fill"></i>
+
+                        <strong>SarvaHConn</strong>
+
+                        <small>
+                            API + Consent + Data + Workflow
+                        </small>
+
+                    </div>
+
+                    <div class="connector-line"></div>
+
+                    <div class="system-node department-node">
+                        <i class="bi bi-mortarboard"></i>
+                        Education Department
+                    </div>
+
+                    <div class="connector-line"></div>
+
+                    <div class="system-node department-node">
+                        <i class="bi bi-heart-pulse"></i>
+                        Health Department
+                    </div>
+
+                    <div class="connector-line"></div>
+
+                    <div class="system-node citizen-node">
+                        <i class="bi bi-person"></i>
+                        Citizen
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <span class="section-label">
+            WHY SARVAHCONN
+        </span>
+
+        <h2 class="fw-bold mt-2">
+            From fragmented systems to connected services
+        </h2>
+
+        <p class="text-muted">
+            A secure interoperability layer between existing government
+            systems.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="feature-card">
+
+                <i class="bi bi-link-45deg"></i>
+
+                <h5>
+                    Connect Systems
+                </h5>
+
+                <p>
+                    Connect independent departmental portals,
+                    databases and APIs through reusable connectors.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="feature-card">
+
+                <i class="bi bi-shield-check"></i>
+
+                <h5>
+                    Trusted Data Sharing
+                </h5>
+
+                <p>
+                    Consent-based access, authorization and audit
+                    logging help protect citizen information.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="feature-card">
+
+                <i class="bi bi-person-check"></i>
+
+                <h5>
+                    Citizen-Centric Services
+                </h5>
+
+                <p>
+                    Reduce repeated data entry and provide unified
+                    application tracking.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

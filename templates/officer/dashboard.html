@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}
+Officer Dashboard | SarvaHConn
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid px-4 py-5">
+
+    <span class="section-label">
+        GOVERNMENT OFFICER
+    </span>
+
+    <h2 class="fw-bold mt-2">
+        Department Operations
+    </h2>
+
+    <p class="text-muted">
+        Process applications, verify citizen information and
+        manage workflow tasks.
+    </p>
+
+    <div class="row g-4 mt-3">
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+                <div>
+                    <small>Pending Applications</small>
+                    <h3>0</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-search"></i>
+                </div>
+                <div>
+                    <small>Under Review</small>
+                    <h3>0</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <div>
+                    <small>Approved</small>
+                    <h3>0</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-exclamation-circle"></i>
+                </div>
+                <div>
+                    <small>Information Requests</small>
+                    <h3>0</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
