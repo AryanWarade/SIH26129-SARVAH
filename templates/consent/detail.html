@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block title %}
+Consent Details | SarvaHConn
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="mb-4">
+
+        <a
+            href="{% url 'consent:list' %}"
+            class="text-decoration-none"
+        >
+            <i class="bi bi-arrow-left me-1"></i>
+            Back to Consents
+        </a>
+
+    </div>
+
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4 p-lg-5">
+
+            <div class="d-flex justify-content-between align-items-start">
+
+                <div>
+
+                    <span class="text-primary fw-semibold">
+                        CONSENT REQUEST
+                    </span>
+
+                    <h2 class="fw-bold mt-2">
+                        {{ consent_request.purpose }}
+                    </h2>
+
+                </div>
+
+
+                {% if consent_request.status == "PENDING" %}
+
+                    <span class="badge bg-warning-subtle text-warning fs-6">
+                        Pending
+                    </span>
+
+                {% elif consent_request.status == "APPROVED" %}
+
+                    <span class="badge bg-success-subtle text-success fs-6">
+                        Approved
+                    </span>
+
+                {% elif consent_request.status == "REJECTED" %}
+
+                    <span class="badge bg-danger-subtle text-danger fs-6">
+                        Rejected
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <hr class="my-4">
+
+
+            <h5 class="fw-bold">
+                Why is this information required?
+            </h5>
+
+            <p class="text-secondary">
+                SarvaHConn requests permission to retrieve verified
+                information from connected government departments.
+                Your information will only be shared for the stated
+                purpose.
+            </p>
+
+
+            <h5 class="fw-bold mt-4">
+                Departments
+            </h5>
+
+            <div class="mb-4">
+
+                {% for department in consent_request.departments %}
+
+                    <span class="badge bg-primary-subtle text-primary me-1">
+                        <i class="bi bi-building me-1"></i>
+                        {{ department }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+
+            <h5 class="fw-bold">
+                Information Requested
+            </h5>
+
+            <ul class="list-group mb-4">
+
+                {% for data in consent_request.requested_data %}
+
+                    <li class="list-group-item">
+                        <i class="bi bi-check-circle text-success me-2"></i>
+                        {{ data }}
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+
+            <div class="alert alert-light border">
+
+                <div class="d-flex">
+
+                    <i class="bi bi-shield-lock fs-4 text-primary me-3"></i>
+
+                    <div>
+
+                        <strong>
+                            Privacy Notice
+                        </strong>
+
+                        <p class="mb-0 small text-secondary">
+                            You control whether this information can
+                            be shared. You can revoke an approved
+                            consent later.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% if consent_request.status == "PENDING" %}
+
+                <div class="d-flex gap-2 mt-4">
+
+                    <form
+                        method="post"
+                        action="{% url 'consent:approve' consent_request.id %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-success"
+                        >
+                            <i class="bi bi-check-circle me-2"></i>
+                            Approve Consent
+                        </button>
+
+                    </form>
+
+
+                    <form
+                        method="post"
+                        action="{% url 'consent:reject' consent_request.id %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-outline-danger"
+                        >
+                            <i class="bi bi-x-circle me-2"></i>
+                            Reject
+                        </button>
+
+                    </form>
+
+                </div>
+
+            {% elif consent_request.status == "APPROVED" %}
+
+                <div class="mt-4">
+
+                    <div class="alert alert-success">
+
+                        <i class="bi bi-shield-check me-2"></i>
+
+                        You have approved this consent request.
+
+                    </div>
+
+
+                    <form
+                        method="post"
+                        action="{% url 'consent:revoke' consent_request.id %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-outline-danger"
+                        >
+                            <i class="bi bi-shield-x me-2"></i>
+                            Revoke Consent
+                        </button>
+
+                    </form>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

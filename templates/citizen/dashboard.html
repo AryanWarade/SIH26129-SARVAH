@@ -125,7 +125,131 @@ Citizen Dashboard | SarvaHConn
 
 
     <div class="row g-4">
+        <!-- Interoperability Section -->
 
+        <div class="card border-0 shadow-sm mb-4">
+
+            <div class="card-body p-4">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                    <div>
+                        <span class="text-primary fw-semibold">
+                            SARVAHCONN INTEROPERABILITY
+                        </span>
+
+                        <h5 class="fw-bold mt-1 mb-1">
+                            Connected Government Data
+                        </h5>
+
+                        <p class="text-secondary mb-0">
+                            Retrieve verified information from connected departments.
+                        </p>
+                    </div>
+
+                    <i class="bi bi-diagram-3 fs-2 text-primary"></i>
+
+                </div>
+
+
+                <div class="row g-3 mb-3">
+
+                    <div class="col-md-4">
+
+                        <div class="border rounded p-3">
+
+                            <div class="d-flex justify-content-between">
+
+                                <span class="fw-semibold">
+                                    Revenue
+                                </span>
+
+                                <span id="revenue-status" class="badge bg-secondary">
+                                    Not Retrieved
+                                </span>
+
+                            </div>
+
+                            <small class="text-secondary">
+                                Income & residence data
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="border rounded p-3">
+
+                            <div class="d-flex justify-content-between">
+
+                                <span class="fw-semibold">
+                                    Education
+                                </span>
+
+                                <span id="education-status" class="badge bg-secondary">
+                                    Not Retrieved
+                                </span>
+
+                            </div>
+
+                            <small class="text-secondary">
+                                Student & education data
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="border rounded p-3">
+
+                            <div class="d-flex justify-content-between">
+
+                                <span class="fw-semibold">
+                                    Health
+                                </span>
+
+                                <span id="health-status" class="badge bg-secondary">
+                                    Not Retrieved
+                                </span>
+
+                            </div>
+
+                            <small class="text-secondary">
+                                Health benefit information
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button type="button" class="btn btn-primary" id="retrieve-data-btn">
+                    <i class="bi bi-cloud-arrow-down me-2"></i>
+                    Retrieve Connected Data
+                </button>
+
+
+                <div id="interoperability-result" class="mt-4" style="display: none;">
+
+                    <h6 class="fw-bold">
+                        Retrieved & Normalized Data
+                    </h6>
+
+                    <div id="interoperability-data" class="bg-light rounded p-3"></div>
+
+                </div>
+
+            </div>
+
+        </div>
         <div class="col-lg-8">
 
             <div class="card border-0 shadow-sm">
@@ -152,10 +276,7 @@ Citizen Dashboard | SarvaHConn
                     </div>
 
 
-                    <a
-                        href="{% url 'service_list' %}"
-                        class="btn btn-primary"
-                    >
+                    <a href="{% url 'service_list' %}" class="btn btn-primary">
                         <i class="bi bi-search me-2"></i>
                         Explore Services
                     </a>
@@ -237,5 +358,162 @@ Citizen Dashboard | SarvaHConn
     </div>
 
 </div>
+
+<script>
+
+document
+    .getElementById("retrieve-data-btn")
+    .addEventListener("click", async function () {
+
+        const button = this;
+
+        button.disabled = true;
+
+        button.innerHTML = `
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Retrieving Data...
+        `;
+
+        try {
+
+            const response = await fetch(
+                "{% url 'interoperability:gateway-citizen-data' %}?citizen_code=MH1001"
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message || "Data retrieval failed."
+                );
+            }
+
+
+            document.getElementById(
+                "revenue-status"
+            ).className = "badge bg-success";
+
+            document.getElementById(
+                "revenue-status"
+            ).textContent = "Connected";
+
+
+            document.getElementById(
+                "education-status"
+            ).className = "badge bg-success";
+
+            document.getElementById(
+                "education-status"
+            ).textContent = "Connected";
+
+
+            document.getElementById(
+                "health-status"
+            ).className = "badge bg-success";
+
+            document.getElementById(
+                "health-status"
+            ).textContent = "Connected";
+
+
+            document.getElementById(
+                "interoperability-result"
+            ).style.display = "block";
+
+
+            document.getElementById(
+                "interoperability-data"
+            ).innerHTML = `
+
+                <div class="row g-3">
+
+                    <div class="col-md-3">
+                        <small class="text-secondary">
+                            Master Citizen ID
+                        </small>
+
+                        <div class="fw-bold">
+                            ${data.master_citizen_id}
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <small class="text-secondary">
+                            Name
+                        </small>
+
+                        <div class="fw-bold">
+                            ${data.full_name}
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <small class="text-secondary">
+                            Income
+                        </small>
+
+                        <div class="fw-bold">
+                            ₹${data.revenue.annual_income}
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <small class="text-secondary">
+                            Residence
+                        </small>
+
+                        <div class="fw-bold">
+                            ${data.revenue.residence}
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <small class="text-secondary">
+                            Education
+                        </small>
+
+                        <div class="fw-bold">
+                            ${data.education.education_course}
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <small class="text-secondary">
+                            Health Benefit Status
+                        </small>
+
+                        <div class="fw-bold">
+                            ${data.health.benefit_status}
+                        </div>
+                    </div>
+
+                </div>
+            `;
+
+        } catch (error) {
+
+            alert(
+                "Unable to retrieve connected department data: "
+                + error.message
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.innerHTML = `
+                <i class="bi bi-cloud-arrow-down me-2"></i>
+                Retrieve Connected Data
+            `;
+        }
+
+    });
+
+</script>
 
 {% endblock %}

@@ -152,3 +152,70 @@ class IdentityMapping(models.Model):
             f"{self.master_citizen.master_citizen_id} → "
             f"{self.department_identity.department_reference}"
         )
+
+class APITransaction(models.Model):
+
+    STATUS_CHOICES = [
+        ("SUCCESS", "Success"),
+        ("FAILED", "Failed"),
+    ]
+
+    department = models.ForeignKey(
+        "departments.Department",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="api_transactions",
+    )
+
+    operation = models.CharField(
+        max_length=100,
+    )
+
+    endpoint = models.CharField(
+        max_length=255,
+    )
+
+    request_data = models.JSONField(
+        default=dict,
+        blank=True,
+    )
+
+    response_data = models.JSONField(
+        default=dict,
+        blank=True,
+    )
+
+    http_status = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="SUCCESS",
+    )
+
+    error_message = models.TextField(
+        blank=True,
+    )
+
+    response_time_ms = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return (
+            f"{self.operation} - "
+            f"{self.status} - "
+            f"{self.created_at}"
+        )

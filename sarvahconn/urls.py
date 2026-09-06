@@ -29,4 +29,14 @@ urlpatterns = [
         include("services.urls"),
     ),
 
+    path(
+        "api/interoperability/",
+        include("interoperability.api_urls"),
+    ),
+
+    path(
+    "consent/",
+    include("consent.urls"),
+    ),
+    
 ]
