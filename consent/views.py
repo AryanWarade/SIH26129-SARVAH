@@ -66,12 +66,17 @@ def approve_consent(request, consent_id):
             consent_id=consent_id,
         )
 
+    now = timezone.now()
+
     consent_request.status = "APPROVED"
-    consent_request.responded_at = timezone.now()
+    consent_request.responded_at = now
+    consent_request.expires_at = now + timezone.timedelta(days=30)
+
     consent_request.save(
         update_fields=[
             "status",
             "responded_at",
+            "expires_at",
         ]
     )
 
