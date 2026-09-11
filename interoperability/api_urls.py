@@ -46,4 +46,10 @@ urlpatterns = [
         api_views.gateway_health_page,
         name="gateway-health",
     ),
+
+    path(
+    "external/citizen/",
+    api_views.external_citizen_data,
+    name="external-citizen-data",
+    ),
 ]

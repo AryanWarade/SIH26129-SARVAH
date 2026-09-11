@@ -15,6 +15,8 @@ from consent.services import has_valid_consent
 
 
 
+
+
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def revenue_citizen_data(request):
@@ -293,3 +295,63 @@ def gateway_health_page(request):
             "status": "Operational",
         }
     )
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def data_gov_resource(request):
+
+    resource_id = request.GET.get("resource_id")
+
+    if not resource_id:
+        return Response(
+            {
+                "success": False,
+                "message": "resource_id is required."
+            },
+            status=400,
+        )
+
+    try:
+
+        data = ExternalAPIService.fetch_data_gov_resource(
+            resource_id=resource_id,
+            limit=10,
+        )
+
+        return Response(data)
+
+    except Exception as e:
+
+        return Response(
+            {
+                "success": False,
+                "message": "Unable to retrieve data from data.gov.in.",
+                "error": str(e),
+            },
+            status=500,
+        )
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def external_citizen_data(request):
+    """
+    Simulated external government system API.
+
+    This intentionally uses a different schema from
+    SARVAH's internal citizen data.
+    """
+
+    external_id = request.GET.get(
+        "external_id",
+        "EXT-1001"
+    )
+
+    data = {
+        "external_id": external_id,
+        "name": "Demo Citizen",
+        "district_name": "Pune",
+        "annual_income": 250000,
+        "verification_status": "VERIFIED",
+    }
+
+    return Response(data)
